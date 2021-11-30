@@ -83,7 +83,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                     Consumer<UserManager>(builder: (_, userManager, __) {
                       return Text(
-                        userManager.emailUsuario,
+                        userManager.emailUsuario() ?? "",
                         style: TextStyle(
                           fontSize: 40,
                         ),

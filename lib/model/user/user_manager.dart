@@ -15,19 +15,31 @@ class UserManager extends ChangeNotifier {
     Navigator.of(context).pushNamed('/');
   }
 
-  get emailUsuario => auth.currentUser!.email;
+  String? emailUsuario() {
+    if (auth.currentUser != null) {
+      return auth.currentUser!.email;
+    }
+    return "";
+  }
 
-  Future<void> cadastrarUsuario(String email, String senha) async {
-    await auth.createUserWithEmailAndPassword(email: email, password: senha);
+  Future<void> cadastrarUsuario(String email, String senha,
+      {required Function onSuccess, required Function onFail}) async {
+    try {
+      await auth.createUserWithEmailAndPassword(email: email, password: senha);
+      onSuccess();
+    } catch (e) {
+      onFail();
+    }
   }
 
   Future<void> logarUsuario(String email, String senha,
-      {required Function onSuccess}) async {
+      {required Function onSuccess, required Function onFail}) async {
     try {
       await auth.signInWithEmailAndPassword(email: email, password: senha);
       onSuccess();
     } catch (e) {
       print(e);
+      onFail();
     }
   }
 }

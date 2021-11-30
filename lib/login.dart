@@ -105,6 +105,17 @@ class _LoginFormState extends State<LoginPage> {
                                 userManager.userModel.email!,
                                 userManager.userModel.senha!, onSuccess: () {
                               Navigator.of(context).pushNamed('/init');
+                            }, onFail: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title:
+                                          Text("                        Erro"),
+                                      content: Text(
+                                          "Ocorreu um erro no login, verifique suas informações ou utilize outro email."),
+                                    );
+                                  });
                             });
                           },
                           child: Text(

@@ -101,7 +101,20 @@ class _LoginFormState extends State<SignPage> {
                               _keyForm.currentState!.save();
                               await userManager.cadastrarUsuario(
                                   userManager.userModel.email!,
-                                  userManager.userModel.senha!);
+                                  userManager.userModel.senha!, onSuccess: () {
+                                Navigator.of(context).pushNamed('/init');
+                              }, onFail: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text(
+                                            "                        Erro"),
+                                        content: Text(
+                                            "Ocorreu um erro no cadastro, verifique suas informações ou utilize outro email."),
+                                      );
+                                    });
+                              });
                               _controllerEmail.text = "";
                               _controllerSenha.text = "";
                             },
