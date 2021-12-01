@@ -6,8 +6,8 @@ class CustomDialogs {
       context: context,
       builder: (_) {
         return const AlertDialog(
-          title: Text("Sucesso"),
-          content: Text("Sucesso"),
+          title: Text("      Alternativa correta!"),
+          content: Text(""),
         );
       },
     );
@@ -18,8 +18,8 @@ class CustomDialogs {
       context: context,
       builder: (_) {
         return const AlertDialog(
-          title: Text("Erro"),
-          content: Text("Erro"),
+          title: Text("    Alternativa incorreta!"),
+          content: Text(""),
         );
       },
     );

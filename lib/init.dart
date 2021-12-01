@@ -15,6 +15,54 @@ class InitPage extends StatelessWidget {
     final QuadColor = Color(0xff46B8FC);
     final cinzaColor = Color(0xffB6B6B6);
     return Scaffold(
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: secondaryColor,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: IconButton(
+                icon: Icon(
+                  Icons.home,
+                  size: 50,
+                  color: terciaryColor,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/init');
+                },
+              ),
+              label: "",
+            ),
+            BottomNavigationBarItem(
+              icon: IconButton(
+                icon: Icon(
+                  Icons.settings_sharp,
+                  size: 50,
+                  color: terciaryColor,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(
+                    "profile",
+                  );
+                },
+              ),
+              label: "",
+            ),
+            BottomNavigationBarItem(
+              icon: IconButton(
+                icon: Icon(
+                  Icons.account_circle,
+                  size: 50,
+                  color: terciaryColor,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(
+                    "profile",
+                  );
+                },
+              ),
+              label: "",
+            ),
+          ],
+        ),
         backgroundColor: primaryColor,
         body: Stack(
           children: [
@@ -31,13 +79,10 @@ class InitPage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: 20,
-                    ),
                     Image.asset(
                       "assets/logo.png",
-                      width: 250,
-                      height: 120,
+                      width: 220,
+                      height: 90,
                     ),
                     Text("Escolha a disciplina:",
                         style: TextStyle(

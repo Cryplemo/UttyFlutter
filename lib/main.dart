@@ -1,7 +1,9 @@
+// @dart=2.9
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:utty_flutter/model/questoes/questao_manager.dart';
+import 'package:utty_flutter/profile.dart';
 
 import 'package:utty_flutter/sign.dart';
 import 'package:utty_flutter/init.dart';
@@ -17,7 +19,7 @@ void main() async {
 }
 
 class InitialPage extends StatelessWidget {
-  const InitialPage({Key? key}) : super(key: key);
+  const InitialPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +48,16 @@ class InitialPage extends StatelessWidget {
                 return MaterialPageRoute(
                   builder: (context) => const SignPage(),
                 );
+              case 'profile':
+                return MaterialPageRoute(
+                  builder: (context) => const ProfilePage(),
+                );
               case 'questoes':
                 return MaterialPageRoute(builder: (context) {
                   QuestoesPage questoes = args as QuestoesPage;
                   return QuestoesPage(questoes: questoes.questoes);
                 });
-              case 'home':
+              case 'init':
               default:
                 return MaterialPageRoute(
                     builder: (context) => const InitPage());

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:utty_flutter/model/user/user_manager.dart';
 
 class ProfilePage extends StatelessWidget {
+  const ProfilePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final Widget activeIcon;
@@ -24,7 +25,9 @@ class ProfilePage extends StatelessWidget {
                   color: terciaryColor,
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/menu');
+                  Navigator.of(context).pushNamed(
+                    "init",
+                  );
                 },
               ),
               label: "",
@@ -85,7 +88,9 @@ class ProfilePage extends StatelessWidget {
                       return Text(
                         userManager.emailUsuario() ?? "",
                         style: TextStyle(
+                          fontFamily: "Arvo",
                           fontSize: 40,
+                          color: QuadColor,
                         ),
                       );
                     }),
