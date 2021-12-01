@@ -1,6 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' show FirebaseFirestore;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:utty_flutter/global_dialog.dart';
 import 'package:utty_flutter/model/questoes/questao.dart';
 
 class QuestaoManager extends ChangeNotifier {
@@ -12,6 +13,8 @@ class QuestaoManager extends ChangeNotifier {
 
   bool _alternativa1 = false;
   bool get alternativa1 => _alternativa1;
+
+  get context => null;
   set alternativa1(bool novaValorAlternativa) {
     _alternativa1 = novaValorAlternativa;
     notifyListeners();
@@ -83,17 +86,9 @@ class QuestaoManager extends ChangeNotifier {
   Future<void> verificarResposta(int respostaSelecionada, int respostaCorreta,
       BuildContext buildContext) async {
     if (respostaSelecionada == respostaCorreta) {
-      AlertDialog(
-        title: Text("                        Parabéns"),
-        content: Text("Alternativa correta."),
-      );
-      ;
+      CustomDialogs.dialogSucesso(buildContext);
     } else {
-      AlertDialog(
-        title: Text("                        Essa Não"),
-        content: Text("Alternativa incorreta."),
-      );
-      ;
+      CustomDialogs.dialogErro(buildContext);
     }
   }
 
