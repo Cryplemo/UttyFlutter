@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:utty_flutter/model/user/user_manager.dart';
 
+import 'model/questoes/questao.dart';
+
 class QuizPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Widget activeIcon;
+    final List<Questao>? questoes;
     const primaryColor = Color(0xffDEDEDE);
     const secondaryColor = Color(0xff474746);
     const terciaryColor = Color(0xffFA963B);

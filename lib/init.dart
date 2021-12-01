@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:utty_flutter/model/questoes/questao.dart';
+import 'package:utty_flutter/model/questoes/questao_manager.dart';
+import 'package:utty_flutter/questoes_page.dart';
+import 'Quiz.dart';
 
 class InitPage extends StatelessWidget {
+  const InitPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final primaryColor = Color(0xffDEDEDE);
@@ -50,8 +56,17 @@ class InitPage extends StatelessWidget {
                                 MaterialStateProperty.all(secondaryColor),
                             minimumSize:
                                 MaterialStateProperty.all(Size(350, 62))),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/menu');
+                        onPressed: () async {
+                          final questaoManager = Provider.of<QuestaoManager>(
+                              context,
+                              listen: false);
+                          await questaoManager.getQuestoesMatematica();
+                          Navigator.of(context).pushNamed(
+                            "questoes",
+                            arguments: QuestoesPage(
+                              questoes: questaoManager.questoes,
+                            ),
+                          );
                         },
                         child: Image.asset("assets/MATH.png")),
                     SizedBox(

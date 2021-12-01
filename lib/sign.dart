@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:utty_flutter/model/user/user_manager.dart';
 
 class SignPage extends StatefulWidget {
+  const SignPage({Key? key}) : super(key: key);
   @override
   _LoginFormState createState() => _LoginFormState();
 }
