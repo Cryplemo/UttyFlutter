@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:utty_flutter/model/user/user_manager.dart';
 
-class MenuPage extends StatelessWidget {
+class QuizPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Widget activeIcon;
@@ -9,54 +11,14 @@ class MenuPage extends StatelessWidget {
     const terciaryColor = Color(0xffFA963B);
     const QuadColor = Color(0xff46B8FC);
     const cinzaColor = Color(0xffB6B6B6);
+
     return Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: secondaryColor,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: IconButton(
-                icon: Icon(
-                  Icons.home,
-                  size: 50,
-                  color: terciaryColor,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/menu');
-                },
-              ),
-              label: "",
-            ),
-            BottomNavigationBarItem(
-              icon: IconButton(
-                icon: Icon(
-                  Icons.settings_sharp,
-                  size: 50,
-                  color: terciaryColor,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/menu');
-                },
-              ),
-              label: "",
-            ),
-            BottomNavigationBarItem(
-              icon: IconButton(
-                icon: Icon(
-                  Icons.account_circle,
-                  size: 50,
-                  color: terciaryColor,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/profile');
-                },
-              ),
-              label: "",
-            ),
-          ],
-        ),
         backgroundColor: primaryColor,
         body: Stack(
           children: [
+            BackButton(
+              color: Colors.black,
+            ),
             Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
@@ -71,35 +33,40 @@ class MenuPage extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 20,
-                    ),
-                    Image.asset(
-                      "assets/logo.png",
-                      width: 250,
-                      height: 120,
+                      height: 50,
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 300,
+                      child: Text(
+                        "Em um determinado ano, os computadores da receita federal de um país identificaram como inconsistentes 20% das declarações de imposto de renda que lhe foram encaminhadas. Uma declaração é classificada como inconsistente quando apresenta algum tipo de erro ou conflito nas informações prestadas. Essas declarações consideradas inconsistentes foram analisadas pelos auditores, que constataram que 25% delas eram fraudulentas. Constatou-se ainda que, dentre as declarações que não apresentaram inconsistências, 6,25% eram fraudulentas. Qual é a probabilidade de, nesse ano, a declaração de um contribuinte ser considerada inconsistente, dado que ela era fraudulenta?",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: "Arvo",
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 60,
                     ),
                     ElevatedButton(
                         style: ButtonStyle(
                             textStyle: MaterialStateProperty.all(TextStyle(
-                                fontSize: 40,
-                                fontFamily: "Aldo",
+                                fontSize: 15,
+                                fontFamily: "Arvo",
                                 color: terciaryColor)),
                             backgroundColor:
                                 MaterialStateProperty.all(secondaryColor),
                             minimumSize:
                                 MaterialStateProperty.all(Size(350, 62))),
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/quiz');
+                          Navigator.of(context).pushNamed('/init');
                         },
                         child: Text(
-                          "Questoes",
+                          "",
                           style: TextStyle(
-                              fontFamily: "Aldo",
-                              fontSize: 40,
-                              color: terciaryColor),
+                              fontFamily: "Arvo",
+                              fontSize: 15,
+                              color: Colors.white),
                         )),
                     SizedBox(
                       height: 20,
@@ -107,20 +74,18 @@ class MenuPage extends StatelessWidget {
                     ElevatedButton(
                         style: ButtonStyle(
                             textStyle: MaterialStateProperty.all(
-                                TextStyle(fontSize: 40, fontFamily: "Aldo")),
+                                TextStyle(fontSize: 15, fontFamily: "Arvo")),
                             backgroundColor:
                                 MaterialStateProperty.all(secondaryColor),
                             minimumSize:
                                 MaterialStateProperty.all(Size(350, 62))),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/');
-                        },
+                        onPressed: () {},
                         child: Text(
-                          "Estatisticas",
+                          "",
                           style: TextStyle(
-                              fontFamily: "Aldo",
-                              fontSize: 40,
-                              color: QuadColor),
+                              fontFamily: "Arvo",
+                              fontSize: 15,
+                              color: Colors.white),
                         )),
                     SizedBox(
                       height: 20,
@@ -137,11 +102,11 @@ class MenuPage extends StatelessWidget {
                           Navigator.of(context).pushNamed('/init');
                         },
                         child: Text(
-                          "Disciplinas",
+                          "",
                           style: TextStyle(
                               fontFamily: "Aldo",
-                              fontSize: 40,
-                              color: terciaryColor),
+                              fontSize: 15,
+                              color: Colors.white),
                         )),
                     SizedBox(
                       height: 20,
@@ -149,7 +114,7 @@ class MenuPage extends StatelessWidget {
                     ElevatedButton(
                       style: ButtonStyle(
                           textStyle: MaterialStateProperty.all(
-                              TextStyle(fontSize: 40, fontFamily: "Aldo")),
+                              TextStyle(fontSize: 15, fontFamily: "Aldo")),
                           backgroundColor:
                               MaterialStateProperty.all(secondaryColor),
                           minimumSize:
@@ -158,9 +123,12 @@ class MenuPage extends StatelessWidget {
                         Navigator.of(context).pushNamed('/init');
                       },
                       child: Text(
-                        "Meu Ranking",
+                        "",
                         style: TextStyle(
-                            fontFamily: "Aldo", fontSize: 40, color: QuadColor),
+                          fontFamily: "Aldo",
+                          fontSize: 15,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ],
