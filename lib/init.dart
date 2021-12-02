@@ -34,13 +34,13 @@ class InitPage extends StatelessWidget {
             BottomNavigationBarItem(
               icon: IconButton(
                 icon: Icon(
-                  Icons.settings_sharp,
+                  Icons.emoji_events_rounded,
                   size: 50,
                   color: terciaryColor,
                 ),
                 onPressed: () {
                   Navigator.of(context).pushNamed(
-                    "profile",
+                    "ranking",
                   );
                 },
               ),
@@ -126,8 +126,17 @@ class InitPage extends StatelessWidget {
                                 MaterialStateProperty.all(secondaryColor),
                             minimumSize:
                                 MaterialStateProperty.all(Size(350, 62))),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/menu');
+                        onPressed: () async {
+                          final questaoManager = Provider.of<QuestaoManager>(
+                              context,
+                              listen: false);
+                          await questaoManager.getQuestoesFisica();
+                          Navigator.of(context).pushNamed(
+                            "questoes",
+                            arguments: QuestoesPage(
+                              questoes: questaoManager.questoes,
+                            ),
+                          );
                         },
                         child: Image.asset("assets/FIS.png")),
                     SizedBox(
@@ -141,8 +150,17 @@ class InitPage extends StatelessWidget {
                                 MaterialStateProperty.all(secondaryColor),
                             minimumSize:
                                 MaterialStateProperty.all(Size(350, 62))),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/menu');
+                        onPressed: () async {
+                          final questaoManager = Provider.of<QuestaoManager>(
+                              context,
+                              listen: false);
+                          await questaoManager.getQuestoesQuimica();
+                          Navigator.of(context).pushNamed(
+                            "questoes",
+                            arguments: QuestoesPage(
+                              questoes: questaoManager.questoes,
+                            ),
+                          );
                         },
                         child: Image.asset("assets/QUIM.png")),
                     SizedBox(
@@ -156,8 +174,16 @@ class InitPage extends StatelessWidget {
                               MaterialStateProperty.all(secondaryColor),
                           minimumSize:
                               MaterialStateProperty.all(Size(350, 62))),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/menu');
+                      onPressed: () async {
+                        final questaoManager =
+                            Provider.of<QuestaoManager>(context, listen: false);
+                        await questaoManager.getQuestoesBiologia();
+                        Navigator.of(context).pushNamed(
+                          "questoes",
+                          arguments: QuestoesPage(
+                            questoes: questaoManager.questoes,
+                          ),
+                        );
                       },
                       child: Image.asset("assets/BIO.png"),
                     ),

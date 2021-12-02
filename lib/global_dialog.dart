@@ -6,7 +6,8 @@ class CustomDialogs {
       context: context,
       builder: (_) {
         return const AlertDialog(
-          title: Text("      Alternativa correta!"),
+          title: Text("      Alternativa correta!",
+              style: TextStyle(fontFamily: "Aldo", color: Colors.green)),
           content: Text(""),
         );
       },
@@ -18,7 +19,10 @@ class CustomDialogs {
       context: context,
       builder: (_) {
         return const AlertDialog(
-          title: Text("    Alternativa incorreta!"),
+          title: Text(
+            "    Alternativa incorreta!",
+            style: TextStyle(fontFamily: "Aldo", color: Colors.red),
+          ),
           content: Text(""),
         );
       },

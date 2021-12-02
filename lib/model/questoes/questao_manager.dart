@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:utty_flutter/global_dialog.dart';
 import 'package:utty_flutter/model/questoes/questao.dart';
+import 'package:utty_flutter/model/user/user.dart';
 
 class QuestaoManager extends ChangeNotifier {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -10,11 +11,11 @@ class QuestaoManager extends ChangeNotifier {
   final PageController _pageController = PageController();
   PageController get pageController => _pageController;
   late int questaoSelecionada;
+  get context => null;
+  double ranking = 0.0;
 
   bool _alternativa1 = false;
   bool get alternativa1 => _alternativa1;
-
-  get context => null;
   set alternativa1(bool novaValorAlternativa) {
     _alternativa1 = novaValorAlternativa;
     notifyListeners();
@@ -78,22 +79,99 @@ class QuestaoManager extends ChangeNotifier {
 
   Future<void> getQuestoesMatematica() async {
     final docs = await firestore.collection("Matematica").get();
+    questoes = [];
+    docs.docs.forEach((questao) {
+      questoes.add(Questao.fromDocumentSnapshot(questao));
+    });
+  }
+
+  Future<void> getQuestoesQuimica() async {
+    final docs = await firestore.collection("Quimica").get();
+    questoes = [];
+    docs.docs.forEach((questao) {
+      questoes.add(Questao.fromDocumentSnapshot(questao));
+    });
+  }
+
+  Future<void> getQuestoesBiologia() async {
+    final docs = await firestore.collection("Biologia").get();
+    questoes = [];
+    docs.docs.forEach((questao) {
+      questoes.add(Questao.fromDocumentSnapshot(questao));
+    });
+  }
+
+  Future<void> getQuestoesFisica() async {
+    final docs = await firestore.collection("Fisica").get();
+    questoes = [];
     docs.docs.forEach((questao) {
       questoes.add(Questao.fromDocumentSnapshot(questao));
     });
   }
 
   Future<void> verificarResposta(int respostaSelecionada, int respostaCorreta,
-      BuildContext buildContext) async {
+      BuildContext buildContext, UserModel userModel) async {
     if (respostaSelecionada == respostaCorreta) {
       CustomDialogs.dialogSucesso(buildContext);
+      await incrementarAcerto(userModel);
     } else {
       CustomDialogs.dialogErro(buildContext);
+      await incrementarErro(userModel);
     }
+  }
+
+  Future<void> incrementarAcerto(UserModel userModel) async {
+    var numeroAcertos = userModel.acertos!;
+    final novoNumeroAcertos = numeroAcertos + 1;
+    await firestore
+        .collection("users")
+        .doc(userModel.id)
+        .update({"acertos": novoNumeroAcertos});
+  }
+
+  Future<void> incrementarErro(UserModel userModel) async {
+    var numeroErros = userModel.erros!;
+    final novoNumeroErros = numeroErros + 1;
+    await firestore
+        .collection("users")
+        .doc(userModel.id)
+        .update({"erros": novoNumeroErros});
   }
 
   void proximaPergunta() {
     pageController.nextPage(
         duration: Duration(seconds: 1), curve: Curves.easeIn);
+    alternativa1 = false;
+    alternativa2 = false;
+    alternativa3 = false;
+    alternativa4 = false;
+  }
+
+  Future getRanking(UserModel userModelConst) async {
+    final getUserFromFirebase =
+        await firestore.collection("users").doc(userModelConst.id).get();
+    final userModel = UserModel.fromFirebase(getUserFromFirebase);
+    final totalQuestoes = userModel.acertos! + userModel.erros!;
+    ranking = userModel.acertos! / totalQuestoes * 100;
+    notifyListeners();
+  }
+
+  definirRanking<String>(double porcentagemRanking) {
+    //retornar o caminho da imagem
+    if (porcentagemRanking < 20.0) {
+      return "assets/FERRO.png";
+    } else if (porcentagemRanking < 40.0) {
+      return "assets/BRONZE.png";
+    } else if (porcentagemRanking < 60.0) {
+      return "a";
+    } else if (porcentagemRanking < 70.0) {
+      return "assets/OURO.png";
+    } else if (porcentagemRanking < 80.0) {
+      return "assets/PLATINA.png";
+    } else if (porcentagemRanking < 100.0) {
+      return "assets/DIMA.png";
+    } else {
+      return "assets/DIMA.png";
+    }
   }
 }

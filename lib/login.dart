@@ -111,21 +111,28 @@ class _LoginFormState extends State<LoginPage> {
                                   context: context,
                                   builder: (context) {
                                     return AlertDialog(
-                                      title:
-                                          Text("                        Erro"),
+                                      title: Text(
+                                        "Erro",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 20),
+                                      ),
                                       content: Text(
                                           "Ocorreu um erro no login, verifique suas informações ou utilize outro email."),
                                     );
                                   });
                             });
                           },
-                          child: Text(
-                            "Acessar",
-                            style: TextStyle(
-                                fontFamily: "Aldo",
-                                fontSize: 40,
-                                color: terciaryColor),
-                          ),
+                          child: userManager.loading
+                              ? CircularProgressIndicator(
+                                  color: Colors.white,
+                                )
+                              : Text(
+                                  "Acessar",
+                                  style: TextStyle(
+                                      fontFamily: "Aldo",
+                                      fontSize: 40,
+                                      color: terciaryColor),
+                                ),
                         ),
                         SizedBox(
                           height: 20,
@@ -145,7 +152,7 @@ class _LoginFormState extends State<LoginPage> {
                               minimumSize:
                                   MaterialStateProperty.all(Size(350, 62))),
                           onPressed: () {
-                            Navigator.of(context).pushNamed('/sign');
+                            Navigator.of(context).pushNamed('cadastro');
                           },
                           child: Text(
                             "Crie sua conta",

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:utty_flutter/color.dart';
 import 'package:utty_flutter/model/user/user_manager.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -35,12 +36,12 @@ class ProfilePage extends StatelessWidget {
             BottomNavigationBarItem(
               icon: IconButton(
                 icon: Icon(
-                  Icons.settings_sharp,
+                  Icons.emoji_events_rounded,
                   size: 50,
                   color: terciaryColor,
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/menu');
+                  Navigator.of(context).pushNamed('ranking');
                 },
               ),
               label: "",
@@ -108,7 +109,27 @@ class ProfilePage extends StatelessWidget {
                             minimumSize:
                                 MaterialStateProperty.all(Size(350, 62))),
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/init');
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  backgroundColor:
+                                      CoresAplicativo.secondaryColor,
+                                  title: Text("Sobre nos",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontFamily: "Aldo",
+                                        color: CoresAplicativo.terciaryColor,
+                                      )),
+                                  content: Text(
+                                    "Somos uma organização que prioriza a educação, mentalidade e o futuro de nossos apoiadores, sempre estaremos à disposição para auxiliá-los nos momentos mais angustiantes.",
+                                    style: TextStyle(
+                                        color: CoresAplicativo.terciaryColor,
+                                        fontFamily: "Arvo"),
+                                  ),
+                                );
+                              });
                         },
                         child: Text(
                           "Sobre",
@@ -177,6 +198,7 @@ class ProfilePage extends StatelessWidget {
                       },
                       child: Text(
                         "Questoes Respondidas",
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: "Aldo",
                           fontSize: 35,

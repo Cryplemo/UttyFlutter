@@ -6,13 +6,40 @@ import 'package:flutter/widgets.dart';
 import 'package:utty_flutter/model/user/user.dart';
 
 class UserManager extends ChangeNotifier {
+  UserManager() {
+    loadCurrentUser();
+  }
+
+  bool _loading = false;
+  bool get loading => _loading;
+  set loading(bool novaValorAlternativa) {
+    _loading = novaValorAlternativa;
+    notifyListeners();
+  }
+
   FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   UserModel userModel = UserModel();
 
   Future<void> logout(BuildContext context) async {
     await auth.signOut();
-    Navigator.of(context).pushNamed('/');
+    Navigator.of(context).pushNamed('login');
+  }
+
+  Future<void> loadCurrentUser() async {
+    try {
+      User currentUser = auth.currentUser!;
+      if (currentUser != null) {
+        final DocumentSnapshot docUser =
+            await firestore.collection('users').doc(currentUser.uid).get();
+        userModel = UserModel.fromFirebase(docUser);
+        print(userModel);
+      }
+      notifyListeners();
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 
   String? emailUsuario() {
@@ -25,7 +52,15 @@ class UserManager extends ChangeNotifier {
   Future<void> cadastrarUsuario(String email, String senha,
       {required Function onSuccess, required Function onFail}) async {
     try {
-      await auth.createUserWithEmailAndPassword(email: email, password: senha);
+      final credential = await auth.createUserWithEmailAndPassword(
+          email: email, password: senha);
+      final Map<String, dynamic> map = {
+        'email': userModel.email,
+        "id": credential.user!.uid,
+        "acertos": 0,
+        "erros": 0,
+      };
+      await firestore.collection("users").doc(credential.user!.uid).set(map);
       onSuccess();
     } catch (e) {
       onFail();
@@ -35,11 +70,14 @@ class UserManager extends ChangeNotifier {
   Future<void> logarUsuario(String email, String senha,
       {required Function onSuccess, required Function onFail}) async {
     try {
+      loading = true;
       await auth.signInWithEmailAndPassword(email: email, password: senha);
+      await loadCurrentUser();
       onSuccess();
     } catch (e) {
-      print(e);
       onFail();
+    } finally {
+      loading = false;
     }
   }
 }

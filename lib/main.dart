@@ -1,9 +1,11 @@
 // @dart=2.9
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:utty_flutter/model/questoes/questao_manager.dart';
 import 'package:utty_flutter/profile.dart';
+import 'package:utty_flutter/ranking.dart';
 
 import 'package:utty_flutter/sign.dart';
 import 'package:utty_flutter/init.dart';
@@ -16,6 +18,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const InitialPage());
+}
+
+Widget verificarUsuarioLogado() {
+  final auth = FirebaseAuth.instance;
+  if (auth.currentUser != null) {
+    return InitPage();
+  } else {
+    return LoginPage();
+  }
 }
 
 class InitialPage extends StatelessWidget {
@@ -36,7 +47,7 @@ class InitialPage extends StatelessWidget {
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: const LoginPage(),
+          home: verificarUsuarioLogado(),
           onGenerateRoute: (settings) {
             final args = settings.arguments;
             switch (settings.name) {
@@ -51,6 +62,10 @@ class InitialPage extends StatelessWidget {
               case 'profile':
                 return MaterialPageRoute(
                   builder: (context) => const ProfilePage(),
+                );
+              case 'ranking':
+                return MaterialPageRoute(
+                  builder: (context) => const RankingPage(),
                 );
               case 'questoes':
                 return MaterialPageRoute(builder: (context) {
