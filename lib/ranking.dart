@@ -84,21 +84,22 @@ class _RankingPageState extends State<RankingPage> {
                       image: AssetImage("assets/background.png"))),
             ),
             Padding(
-              padding: const EdgeInsets.all(0.0),
-              child: Column(
-                children: [
-                  Container(
-                    child: Text(
-                      "⠀⠀ Meu Ranking",
-                      style: TextStyle(
-                          fontFamily: "Aldo",
-                          fontSize: 50,
-                          color: CoresAplicativo.terciaryColor),
-                    ),
+                padding: const EdgeInsets.all(0.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        child: Text(
+                          "⠀⠀ Meu Ranking",
+                          style: TextStyle(
+                              fontFamily: "Aldo",
+                              fontSize: 50,
+                              color: CoresAplicativo.terciaryColor),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                )),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Row(
@@ -107,7 +108,7 @@ class _RankingPageState extends State<RankingPage> {
                 children: [
                   Container(
                     height: MediaQuery.of(context).size.height * 0.25,
-                    width: MediaQuery.of(context).size.width * 0.60,
+                    width: MediaQuery.of(context).size.width * 0.6,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage(questaoManager.definirRanking(
@@ -123,22 +124,19 @@ class _RankingPageState extends State<RankingPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 150,
+                padding: const EdgeInsets.all(20.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 105,
+                      ),
+                      Image(
+                        image: AssetImage("assets/rankings.png"),
+                      ),
+                    ],
                   ),
-                  Text(
-                    "Porcentagem de acerto necessaria para cada ranque.",
-                    style: TextStyle(
-                        fontFamily: "Aldo",
-                        fontSize: 30,
-                        color: CoresAplicativo.secondaryColor),
-                  ),
-                ],
-              ),
-            )
+                ))
           ],
         ),
       ),

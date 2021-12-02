@@ -163,7 +163,7 @@ class QuestaoManager extends ChangeNotifier {
     } else if (porcentagemRanking < 40.0) {
       return "assets/BRONZE.png";
     } else if (porcentagemRanking < 60.0) {
-      return "a";
+      return "assets/PRATA.png";
     } else if (porcentagemRanking < 70.0) {
       return "assets/OURO.png";
     } else if (porcentagemRanking < 80.0) {

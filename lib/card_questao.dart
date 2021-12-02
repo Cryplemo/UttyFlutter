@@ -66,7 +66,7 @@ class _CardQuestaoState extends State<CardQuestao> {
                               alignment: MainAxisAlignment.end,
                               width: MediaQuery.of(context).size.width * 0.7,
                               percent: 1.0,
-                              backgroundColor: Colors.grey[300],
+                              backgroundColor: CoresAplicativo.secondaryColor,
                               onAnimationEnd: () {
                                 questaoManager.proximaPergunta();
                                 final userManager = Provider.of<UserManager>(
