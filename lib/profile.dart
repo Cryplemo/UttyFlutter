@@ -16,48 +16,54 @@ class ProfilePage extends StatelessWidget {
 
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: secondaryColor,
+          selectedLabelStyle: TextStyle(fontSize: 0),
+          backgroundColor: CoresAplicativo.secondaryColor,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: IconButton(
+                //padding: EdgeInsets.zero,
+                iconSize: 60,
                 icon: Icon(
                   Icons.home,
-                  size: 50,
-                  color: terciaryColor,
+                  color: CoresAplicativo.terciaryColor,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/init');
+                },
+              ),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: IconButton(
+                //padding: EdgeInsets.zero,
+                iconSize: 60,
+                icon: Icon(
+                  Icons.emoji_events_rounded,
+                  color: CoresAplicativo.terciaryColor,
                 ),
                 onPressed: () {
                   Navigator.of(context).pushNamed(
-                    "init",
+                    "ranking",
                   );
                 },
               ),
-              label: "",
+              label: "Ranking",
             ),
             BottomNavigationBarItem(
               icon: IconButton(
-                icon: Icon(
-                  Icons.emoji_events_rounded,
-                  size: 50,
-                  color: terciaryColor,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pushNamed('ranking');
-                },
-              ),
-              label: "",
-            ),
-            BottomNavigationBarItem(
-              icon: IconButton(
+                //padding: EdgeInsets.zero,
+                iconSize: 60,
                 icon: Icon(
                   Icons.account_circle,
-                  size: 50,
-                  color: terciaryColor,
+                  color: CoresAplicativo.terciaryColor,
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/profile');
+                  Navigator.of(context).pushNamed(
+                    "profile",
+                  );
                 },
               ),
-              label: "",
+              label: "Perfil",
             ),
           ],
         ),
@@ -78,7 +84,7 @@ class ProfilePage extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 20,
+                      height: 50,
                     ),
                     Image.asset(
                       "assets/logo.png",
@@ -90,7 +96,7 @@ class ProfilePage extends StatelessWidget {
                         userManager.emailUsuario() ?? "",
                         style: TextStyle(
                           fontFamily: "Arvo",
-                          fontSize: 40,
+                          fontSize: 30,
                           color: QuadColor,
                         ),
                       );
@@ -113,12 +119,22 @@ class ProfilePage extends StatelessWidget {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
+/*                                   actions: [
+                                    ElevatedButton(
+                                      onPressed: () {},
+                                      child: Text("teste"),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {},
+                                      child: Text("teste"),
+                                    ),
+                                  ], */
                                   backgroundColor:
                                       CoresAplicativo.secondaryColor,
                                   title: Text("Sobre nos",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: 40,
                                         fontFamily: "Aldo",
                                         color: CoresAplicativo.terciaryColor,
                                       )),
@@ -184,27 +200,6 @@ class ProfilePage extends StatelessWidget {
                         )),
                     SizedBox(
                       height: 20,
-                    ),
-                    ElevatedButton(
-                      style: ButtonStyle(
-                          textStyle: MaterialStateProperty.all(
-                              TextStyle(fontSize: 40, fontFamily: "Aldo")),
-                          backgroundColor:
-                              MaterialStateProperty.all(secondaryColor),
-                          minimumSize:
-                              MaterialStateProperty.all(Size(350, 62))),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/init');
-                      },
-                      child: Text(
-                        "Questoes Respondidas",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: "Aldo",
-                          fontSize: 35,
-                          color: QuadColor,
-                        ),
-                      ),
                     ),
                   ],
                 ),

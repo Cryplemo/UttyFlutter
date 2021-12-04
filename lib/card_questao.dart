@@ -10,8 +10,15 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:utty_flutter/model/user/user_manager.dart';
 
 class CardQuestao extends StatefulWidget {
-  const CardQuestao({Key? key, required this.questao}) : super(key: key);
+  const CardQuestao(
+      {Key? key,
+      required this.questao,
+      required this.index,
+      required this.lastPage})
+      : super(key: key);
   final Questao? questao;
+  final int index;
+  final int lastPage;
 
   @override
   State<CardQuestao> createState() => _CardQuestaoState();
@@ -48,8 +55,9 @@ class _CardQuestaoState extends State<CardQuestao> {
                 padding: const EdgeInsets.all(8.0),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: SingleChildScrollView(child: Consumer<QuestaoManager>(
-                    builder: (_, questaoManager, __) {
+                  child: SingleChildScrollView(
+                      child: Consumer2<QuestaoManager, UserManager>(
+                    builder: (_, questaoManager, userManager, __) {
                       return Column(
                         children: [
                           SizedBox(
@@ -61,19 +69,24 @@ class _CardQuestaoState extends State<CardQuestao> {
                                 CoresAplicativo.QuadColor,
                               ]),
                               animation: true,
-                              animationDuration: 100000,
+                              animationDuration: 10000,
                               lineHeight: 30,
                               alignment: MainAxisAlignment.end,
                               width: MediaQuery.of(context).size.width * 0.7,
                               percent: 1.0,
                               backgroundColor: CoresAplicativo.secondaryColor,
-                              onAnimationEnd: () {
-                                questaoManager.proximaPergunta();
-                                final userManager = Provider.of<UserManager>(
-                                    context,
-                                    listen: false);
-                                questaoManager
-                                    .incrementarErro(userManager.userModel);
+                              onAnimationEnd: () async {
+                                if (questaoManager.currentIndex ==
+                                    widget.index) {
+                                  questaoManager.proximaPergunta(
+                                      widget.lastPage - 1, context);
+                                  final userManager = Provider.of<UserManager>(
+                                      context,
+                                      listen: false);
+                                  final novoNumeroErros = await questaoManager
+                                      .incrementarErro(userManager.userModel);
+                                  userManager.userModel.erros = novoNumeroErros;
+                                }
                               },
                               trailing: Padding(
                                 padding: const EdgeInsets.only(left: 15),
@@ -152,15 +165,18 @@ class _CardQuestaoState extends State<CardQuestao> {
                                 minimumSize:
                                     MaterialStateProperty.all(Size(250, 50))),
                             onPressed: () {
-                              final userManager = Provider.of<UserManager>(
-                                  context,
-                                  listen: false);
+                              if (questaoManager.questaoSelecionada == null) {
+                                //Fazer alert avisando que nao ha questao selecionada
+                                return print("Nenhuma questao selecionada");
+                              }
                               questaoManager.verificarResposta(
-                                  questaoManager.questaoSelecionada,
+                                  questaoManager.questaoSelecionada!,
                                   widget.questao!.numeroResposta!,
                                   context,
-                                  userManager.userModel);
-                              questaoManager.proximaPergunta();
+                                  userManager.userModel,
+                                  widget.questao!.resolucao!);
+                              questaoManager.proximaPergunta(
+                                  widget.lastPage - 1, context);
                             },
                             child: Text("Confirmar",
                                 style: TextStyle(
@@ -178,7 +194,8 @@ class _CardQuestaoState extends State<CardQuestao> {
                                 minimumSize:
                                     MaterialStateProperty.all(Size(250, 50))),
                             onPressed: () {
-                              questaoManager.proximaPergunta();
+                              questaoManager.proximaPergunta(
+                                  widget.lastPage - 1, context);
                             },
                             child: Text("Pular Questao",
                                 style: TextStyle(

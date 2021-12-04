@@ -19,10 +19,17 @@ class _QuestoesPageState extends State<QuestoesPage> {
       builder: (_, questaoManager, __) {
         return PageView.builder(
           controller: questaoManager.pageController,
+          onPageChanged: (index) {
+            questaoManager.currentIndex = index;
+          },
           physics: const NeverScrollableScrollPhysics(),
           itemCount: widget.questoes!.length,
           itemBuilder: (context, index) {
-            return CardQuestao(questao: widget.questoes![index]);
+            return CardQuestao(
+              questao: widget.questoes![index],
+              index: index,
+              lastPage: widget.questoes!.length,
+            );
           },
         );
       },

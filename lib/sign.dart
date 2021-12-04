@@ -132,7 +132,7 @@ class _LoginFormState extends State<SignPage> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.of(context).pushNamed('/');
+                              Navigator.of(context).pushNamed('login');
                             },
                             style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(

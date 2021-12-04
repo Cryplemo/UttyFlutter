@@ -25,6 +25,8 @@ class UserManager extends ChangeNotifier {
   Future<void> logout(BuildContext context) async {
     await auth.signOut();
     Navigator.of(context).pushNamed('login');
+    userModel = UserModel();
+    notifyListeners();
   }
 
   Future<void> loadCurrentUser() async {

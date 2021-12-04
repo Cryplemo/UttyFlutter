@@ -16,26 +16,29 @@ class InitPage extends StatelessWidget {
     final cinzaColor = Color(0xffB6B6B6);
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
+          selectedLabelStyle: TextStyle(fontSize: 0),
           backgroundColor: secondaryColor,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: IconButton(
+                //padding: EdgeInsets.zero,
+                iconSize: 60,
                 icon: Icon(
                   Icons.home,
-                  size: 50,
                   color: terciaryColor,
                 ),
                 onPressed: () {
                   Navigator.of(context).pushNamed('/init');
                 },
               ),
-              label: "",
+              label: "Home",
             ),
             BottomNavigationBarItem(
               icon: IconButton(
+                //padding: EdgeInsets.zero,
+                iconSize: 60,
                 icon: Icon(
                   Icons.emoji_events_rounded,
-                  size: 50,
                   color: terciaryColor,
                 ),
                 onPressed: () {
@@ -44,13 +47,14 @@ class InitPage extends StatelessWidget {
                   );
                 },
               ),
-              label: "",
+              label: "Ranking",
             ),
             BottomNavigationBarItem(
               icon: IconButton(
+                //padding: EdgeInsets.zero,
+                iconSize: 60,
                 icon: Icon(
                   Icons.account_circle,
-                  size: 50,
                   color: terciaryColor,
                 ),
                 onPressed: () {
@@ -59,7 +63,7 @@ class InitPage extends StatelessWidget {
                   );
                 },
               ),
-              label: "",
+              label: "Perfil",
             ),
           ],
         ),

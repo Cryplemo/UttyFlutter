@@ -6,6 +6,7 @@ class Questao {
   String? alternativa2;
   String? alternativa3;
   String? alternativa4;
+  String? resolucao;
   int? numeroResposta;
 
   Questao.fromDocumentSnapshot(QueryDocumentSnapshot documentSnapshot) {
@@ -15,5 +16,6 @@ class Questao {
     alternativa4 = documentSnapshot.get("alt4");
     questao = documentSnapshot.get("questao");
     numeroResposta = documentSnapshot.get("resposta");
+    resolucao = documentSnapshot.get("resolucao");
   }
 }
