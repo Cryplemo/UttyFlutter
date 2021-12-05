@@ -34,7 +34,9 @@ class CustomDialogs {
       context: context,
       builder: (_) {
         return const AlertDialog(
-          actions: [],
+          actions: [
+            
+          ],
           title: Text(
             "Voce chegou a ultima pagina",
             style: TextStyle(fontFamily: "Aldo", color: Colors.red),
