@@ -178,6 +178,10 @@ class QuestaoManager extends ChangeNotifier {
   void proximaPergunta(int lastPage, BuildContext context) {
     if (pageController.page == lastPage) {
       print("Chegou a ultima pagina");
+
+      Navigator.of(context).pushNamed(
+        "init",
+      );
       CustomDialogs.dialogUltimaPagina(context);
       //Exibir dialog avisando que chegou ao final das perguntas
     }

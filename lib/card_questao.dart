@@ -166,7 +166,13 @@ class _CardQuestaoState extends State<CardQuestao> {
                                     MaterialStateProperty.all(Size(250, 50))),
                             onPressed: () {
                               if (questaoManager.questaoSelecionada == null) {
-                                //Fazer alert avisando que nao ha questao selecionada
+                                AlertDialog(
+                                  title: Text("Nenhuma alternativa selecionada",
+                                      style: TextStyle(
+                                          fontFamily: "Aldo",
+                                          color: Colors.green)),
+                                  content: Text(""),
+                                );
                                 return print("Nenhuma questao selecionada");
                               }
                               questaoManager.verificarResposta(

@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
 class CustomDialogs {
+  static get questaoManager => null;
+
   static void dialogSucesso(BuildContext context, String resolucao) {
     showDialog(
       context: context,
       builder: (_) {
+        var widget;
         return AlertDialog(
           title: Text("      Alternativa correta!",
               style: TextStyle(fontFamily: "Aldo", color: Colors.green)),
-          content: Text(resolucao),
+          content: Text("Resolucao: $resolucao"),
+          actions: [],
         );
       },
     );
@@ -34,9 +38,7 @@ class CustomDialogs {
       context: context,
       builder: (_) {
         return const AlertDialog(
-          actions: [
-            
-          ],
+          actions: [],
           title: Text(
             "Voce chegou a ultima pagina",
             style: TextStyle(fontFamily: "Aldo", color: Colors.red),
